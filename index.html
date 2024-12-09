@@ -96,8 +96,7 @@
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
               ipsum suspendisse ultrices gravida.
             </p>
-            <a class="btn border-0 text-white fw-bold" href="#"
-              >AFFILIATE LINK</a
+            <p><button id="redirect-btn">AFFILIATE LINK</button></p>
             >
             <div class="dots">
               <span></span>
@@ -1044,5 +1043,27 @@
         </p>
       </div>
     </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+          const isFacebook = userAgent.includes("FBAN") || userAgent.includes("FBAV");
+          const isInstagram = userAgent.includes("Instagram");
+          const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+          const isAndroid = /android/i.test(userAgent);
+
+          const redirect = () => {
+              const baseUrl = "https://www.pullandbear.com/gr/";
+              if (isAndroid) {
+                  window.location.href = `intent://${baseUrl.replace(/^https?:\/\//, "")}?redirected=true#Intent;scheme=https;package=com.android.chrome;end`;
+              } else if (isiOS) {
+                  window.location.href = `x-safari-${baseUrl}?redirected=true`;
+              }
+          };
+
+          document.getElementById("redirect-btn").addEventListener("click", redirect);
+      });
+  </script>
+  
   </body>
 </html>
